@@ -1,59 +1,61 @@
-//your JS code here. If required.
-document.getElementById("btn").addEventListener("click", function() {
-  // Get the number from the input field
-  const inputNumber = Number(document.getElementById("ip").value);
-  
-  // Function to simulate a delay of 2 seconds
-  function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
+document.getElementById('btn').addEventListener('click', function() {
+  const input = document.getElementById('ip').value;
+  const outputDiv = document.getElementById('output');
 
-  // Chain promises to perform the operations
-  new Promise((resolve) => {
-    // Step 1: Resolve with the input number after 2 seconds
+  const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      document.getElementById("output").textContent = `Result: ${inputNumber}`;
-      resolve(inputNumber);
+      resolve(Number(input));
     }, 2000);
+  });
+
+  promise.then((number) => {
+    outputDiv.textContent = `Result: ${number}`;
+    return number;
   })
-  .then((num) => {
-    // Step 2: Multiply by 2 after 1 second
-    return delay(1000).then(() => {
-      const result = num * 2;
-      document.getElementById("output").textContent = `Result: ${result}`;
-      return result;
+  .then((number) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(number * 2);
+      }, 1000);
     });
   })
-  .then((num) => {
-    // Step 3: Subtract 3 after 1 second
-    return delay(1000).then(() => {
-      const result = num - 3;
-      document.getElementById("output").textContent = `Result: ${result}`;
-      return result;
+  .then((number) => {
+    outputDiv.textContent = `Result: ${number}`;
+    return number;
+  })
+  .then((number) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(number - 3);
+      }, 1000);
     });
   })
-  .then((num) => {
-    // Step 4: Divide by 2 after 1 second
-    return delay(1000).then(() => {
-      const result = num / 2;
-      document.getElementById("output").textContent = `Result: ${result}`;
-      return result;
+  .then((number) => {
+    outputDiv.textContent = `Result: ${number}`;
+    return number;
+  })
+  .then((number) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(number / 2);
+      }, 1000);
     });
   })
-  .then((num) => {
-    // Step 5: Add 10 after 1 second
-    return delay(1000).then(() => {
-      const result = num + 10;
-      document.getElementById("output").textContent = `Result: ${result}`;
-      return result;
+  .then((number) => {
+    outputDiv.textContent = `Result: ${number}`;
+    return number;
+  })
+  .then((number) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(number + 10);
+      }, 1000);
     });
   })
-  .then((finalResult) => {
-    // Final step: Show the final result
-    document.getElementById("output").textContent = `Final Result: ${finalResult}`;
+  .then((number) => {
+    outputDiv.textContent = `Final Result: ${number}`;
   })
   .catch((error) => {
-    // Handle any errors that occur during the promise chain
-    document.getElementById("output").textContent = `Error: ${error.message}`;
+    console.error(error);
   });
 });
